@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chris — Survey & Machine Control Specialist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;1,400&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300;1,9..144,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #f4f1eb;
+  --bg-card: #eceae2;
+  --bg-dark: #1a1814;
+  --text: #1a1814;
+  --text-muted: #706d66;
+  --accent: #2d5a3d;
+  --accent-warm: #8b6914;
+  --accent-light: #e8f0eb;
+  --border: rgba(26,24,20,0.1);
+  --border-strong: rgba(26,24,20,0.2);
+  --mono: 'IBM Plex Mono', monospace;
+  --serif: 'Fraunces', Georgia, serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 13.5px;
+  line-height: 1.75;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ── NAV ── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  padding: 1.1rem 2.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  z-index: 100;
+  backdrop-filter: blur(4px);
+}
+
+.nav-name {
+  font-family: var(--serif);
+  font-size: 1rem;
+  font-weight: 300;
+  font-style: italic;
+  letter-spacing: 0.01em;
+  color: var(--text);
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+
+.nav-links a {
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover {
+  color: var(--text);
+  text-decoration: none;
+}
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding-top: 4rem;
+}
+
+.hero-left {
+  padding: 7rem 3rem 4rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-right: 1px solid var(--border);
+}
+
+.hero-tag {
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.hero-tag::before {
+  content: '';
+  display: inline-block;
+  width: 20px;
+  height: 1px;
+  background: var(--accent);
+}
+
+.hero-name {
+  font-family: var(--serif);
+  font-size: clamp(2.8rem, 5vw, 4.2rem);
+  font-weight: 300;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  margin-bottom: 0.3rem;
+}
+
+.hero-name em {
+  font-style: italic;
+  color: var(--accent);
+}
+
+.hero-title {
+  font-family: var(--serif);
+  font-size: clamp(1rem, 1.8vw, 1.2rem);
+  font-weight: 300;
+  color: var(--text-muted);
+  margin-bottom: 2.5rem;
+  line-height: 1.4;
+}
+
+.hero-desc {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  max-width: 42ch;
+  line-height: 1.8;
+  margin-bottom: 3rem;
+  border-left: 2px solid var(--border-strong);
+  padding-left: 1.2rem;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.4rem;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border: 1px solid var(--border-strong);
+  cursor: pointer;
+  transition: all 0.2s;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background: var(--text);
+  color: var(--bg);
+  border-color: var(--text);
+}
+
+.btn-primary:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  text-decoration: none;
+  color: white;
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--text);
+}
+
+.btn-secondary:hover {
+  background: var(--bg-card);
+  text-decoration: none;
+}
+
+.hero-right {
+  padding: 7rem 2.5rem 4rem 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.stat-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  border: 1px solid var(--border);
+}
+
+.stat {
+  padding: 1.2rem 1.4rem;
+  background: var(--bg-card);
+  border-right: 1px solid var(--border);
+}
+
+.stat:last-child { border-right: none; }
+
+.stat-num {
+  font-family: var(--serif);
+  font-size: 1.8rem;
+  font-weight: 300;
+  line-height: 1;
+  color: var(--text);
+  margin-bottom: 0.3rem;
+}
+
+.stat-label {
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.tools-strip {
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  padding: 1.2rem 1.4rem;
+}
+
+.tools-strip-label {
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 0.7rem;
+}
+
+.tools-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.tool-tag {
+  font-size: 0.72rem;
+  padding: 0.2rem 0.55rem;
+  background: var(--bg);
+  border: 1px solid var(--border-strong);
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+}
+
+/* ── SECTIONS ── */
+section {
+  padding: 5rem 2.5rem;
+  border-top: 1px solid var(--border);
+}
+
+.section-header {
+  display: flex;
+  align-items: baseline;
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.section-num {
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.section-title {
+  font-family: var(--serif);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 300;
+  line-height: 1.2;
+  color: var(--text);
+}
+
+/* ── PROJECTS ── */
+#projects .project-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+}
+
+.project-card {
+  background: var(--bg);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  transition: background 0.2s;
+}
+
+.project-card:hover {
+  background: var(--bg-card);
+}
+
+.project-problem {
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent-warm);
+}
+
+.project-name {
+  font-family: var(--serif);
+  font-size: 1.1rem;
+  font-weight: 400;
+  line-height: 1.3;
+  color: var(--text);
+}
+
+.project-desc {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  flex: 1;
+}
+
+.project-outcome {
+  font-size: 0.78rem;
+  color: var(--accent);
+  padding-top: 0.8rem;
+  border-top: 1px solid var(--border);
+}
+
+.project-outcome::before {
+  content: '→ ';
+  opacity: 0.6;
+}
+
+/* ── FIELDBOOK ── */
+#fieldbook {
+  background: var(--bg-dark);
+  color: rgba(244,241,235,0.9);
+}
+
+#fieldbook .section-num { color: #5a9e70; }
+#fieldbook .section-title { color: rgba(244,241,235,0.95); }
+
+.fieldbook-intro {
+  max-width: 60ch;
+  font-size: 0.87rem;
+  color: rgba(244,241,235,0.55);
+  margin-bottom: 3rem;
+  line-height: 1.8;
+}
+
+.fieldbook-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: rgba(244,241,235,0.08);
+  border: 1px solid rgba(244,241,235,0.08);
+  margin-bottom: 3rem;
+}
+
+.fieldbook-entry {
+  background: var(--bg-dark);
+  padding: 1.8rem 2rem;
+  border: none;
+  transition: background 0.2s;
+}
+
+.fieldbook-entry:hover {
+  background: #222018;
+}
+
+.entry-num {
+  font-size: 0.65rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #5a9e70;
+  margin-bottom: 0.8rem;
+}
+
+.entry-title {
+  font-family: var(--serif);
+  font-size: 1rem;
+  font-weight: 400;
+  color: rgba(244,241,235,0.9);
+  margin-bottom: 0.6rem;
+  line-height: 1.3;
+}
+
+.entry-desc {
+  font-size: 0.80rem;
+  color: rgba(244,241,235,0.45);
+  line-height: 1.7;
+}
+
+.fieldbook-cta {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.fieldbook-thesis {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1rem;
+  color: rgba(244,241,235,0.4);
+  max-width: 52ch;
+  line-height: 1.6;
+}
+
+/* ── TOOLS ── */
+#tools .tools-full-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+}
+
+.tool-category {
+  background: var(--bg);
+  padding: 1.5rem 1.6rem;
+}
+
+.tool-cat-label {
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.tool-items {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.tool-item {
+  font-size: 0.80rem;
+  color: var(--text-muted);
+  padding: 0.15rem 0;
+}
+
+/* ── CONTACT ── */
+#contact {
+  background: var(--bg-card);
+}
+
+.contact-inner {
+  max-width: 640px;
+}
+
+.contact-line {
+  font-family: var(--serif);
+  font-size: clamp(1.3rem, 2.5vw, 1.7rem);
+  font-weight: 300;
+  line-height: 1.4;
+  color: var(--text);
+  margin-bottom: 2.5rem;
+}
+
+.contact-line em {
+  font-style: italic;
+  color: var(--accent);
+}
+
+.contact-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin-bottom: 2rem;
+}
+
+.contact-item {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  display: flex;
+  gap: 1rem;
+}
+
+.contact-item-label {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  width: 80px;
+  flex-shrink: 0;
+  padding-top: 0.1rem;
+}
+
+/* ── FOOTER ── */
+footer {
+  padding: 1.5rem 2.5rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+}
+
+/* ── FADE-IN ANIMATION ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.hero-left > * {
+  animation: fadeUp 0.5s ease both;
+}
+.hero-tag   { animation-delay: 0.05s; }
+.hero-name  { animation-delay: 0.12s; }
+.hero-title { animation-delay: 0.18s; }
+.hero-desc  { animation-delay: 0.24s; }
+.hero-actions { animation-delay: 0.30s; }
+
+.hero-right > * {
+  animation: fadeUp 0.5s ease both;
+  animation-delay: 0.35s;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; }
+  .hero-left { border-right: none; border-bottom: 1px solid var(--border); padding: 6rem 1.5rem 3rem; }
+  .hero-right { padding: 2.5rem 1.5rem; }
+  #projects .project-grid { grid-template-columns: 1fr; }
+  #tools .tools-full-grid { grid-template-columns: repeat(2, 1fr); }
+  .fieldbook-grid { grid-template-columns: 1fr; }
+  nav { padding: 1rem 1.5rem; }
+  .nav-links { gap: 1.2rem; }
+  section { padding: 3.5rem 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-name">Chris K.</span>
+  <ul class="nav-links">
+    <li><a href="#projects">Work</a></li>
+    <li><a href="#fieldbook">Fieldbook</a></li>
+    <li><a href="#tools">Tools</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-left">
+    <div class="hero-tag">Available · Edmonton, AB · 2026</div>
+    <h1 class="hero-name">Survey &<br><em>Machine Control</em><br>Specialist</h1>
+    <p class="hero-title">Grade Control · Geodetics · UAV · Civil 3D</p>
+    <p class="hero-desc">
+      Five years across earthworks, Rail Baltica infrastructure, and wind energy projects. 
+      I close the loop between design models and what the machine actually sees — 
+      surface prep, 3D machine control setup, photogrammetry, and field QC.
+    </p>
+    <div class="hero-actions">
+      <a href="fieldbook.pdf" class="btn btn-primary" download>↓ Field Judgment Guide</a>
+      <a href="#projects" class="btn btn-secondary">See Work</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="stat-row">
+      <div class="stat">
+        <div class="stat-num">5</div>
+        <div class="stat-label">Years experience</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">2</div>
+        <div class="stat-label">Firms, full scope</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">Rail<br>Baltica</div>
+        <div class="stat-label">Bridge layouts &amp; as-builts</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">3D</div>
+        <div class="stat-label">Machine control, daily</div>
+      </div>
+    </div>
+
+    <div class="tools-strip">
+      <div class="tools-strip-label">Ecosystems</div>
+      <div class="tools-list">
+        <span class="tool-tag">Leica</span>
+        <span class="tool-tag">Topcon</span>
+        <span class="tool-tag">Trimble</span>
+        <span class="tool-tag">Civil 3D</span>
+        <span class="tool-tag">BricsCAD</span>
+        <span class="tool-tag">DJI</span>
+        <span class="tool-tag">Metashape</span>
+        <span class="tool-tag">GNSS/RTK</span>
+        <span class="tool-tag">ESTPOS</span>
+      </div>
+    </div>
+
+    <div class="tools-strip">
+      <div class="tools-strip-label">Tickets &amp; Certs (in progress)</div>
+      <div class="tools-list">
+        <span class="tool-tag">H2S Alive</span>
+        <span class="tool-tag">WHMIS</span>
+        <span class="tool-tag">CSTS</span>
+        <span class="tool-tag">Alberta Class 5</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-header">
+    <span class="section-num">01 — Work</span>
+    <h2 class="section-title">Problems solved in the field</h2>
+  </div>
+  <div class="project-grid">
+
+    <div class="project-card">
+      <div class="project-problem">Problem: alignment without reference</div>
+      <div class="project-name">Steel Column Layout — AnyDesk Screen Mirror</div>
+      <p class="project-desc">
+        40 steel columns needed placing with ironworkers needing live position 
+        reference but no way to read survey instruments. Mirrored the total 
+        station screen via AnyDesk — ironworkers could see their offset in 
+        real time without a second person on the instrument.
+      </p>
+      <div class="project-outcome">40 columns, 4 hours, zeros on as-built</div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-problem">Problem: IFC model producing blade instability</div>
+      <div class="project-name">LandXML Surface QC Tool</div>
+      <p class="project-desc">
+        Near-vertical triangles in IFC-converted surfaces caused 3D machine 
+        control blade shake on a Leica MCP80 setup. Built an interactive HTML 
+        QC tool and a Civil 3D LISP routine (BADTRI) to flag and remove 
+        degenerate faces before export.
+      </p>
+      <div class="project-outcome">Blade instability resolved, clean surface exported</div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-problem">Problem: volume reporting on active excavation</div>
+      <div class="project-name">Dual-Altitude UAV Survey — Equinox Processing</div>
+      <p class="project-desc">
+        816-image dual-altitude photogrammetry mission over active earthworks. 
+        Processed in Metashape on Equinox workstation — produced ortho, point 
+        cloud, and volume comparison against design surface. Turnaround under 
+        one working day.
+      </p>
+      <div class="project-outcome">Client volume report delivered same day</div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-problem">Problem: five bridge layouts, tight tolerances</div>
+      <div class="project-name">Rail Baltica Bridge Control</div>
+      <p class="project-desc">
+        Layout and as-built measurement for five bridge structures on the Rail 
+        Baltica main line. Geodetic control established from national network, 
+        deformation monitoring, and as-built documentation against design 
+        IFC packages.
+      </p>
+      <div class="project-outcome">All structures within design tolerance</div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-problem">Problem: subgrade QC on remote machine control site</div>
+      <div class="project-name">IFC-to-TIN LISP — BricsCAD BatchFacesToTIN</div>
+      <p class="project-desc">
+        Existing workflow required manual extraction of 3D solids from IFC 
+        models for machine control surface preparation. Built a BricsCAD LISP 
+        routine (BatchFacesToTIN) to batch-convert faces to TIN breaklines 
+        and boundary polylines automatically.
+      </p>
+      <div class="project-outcome">Hours of manual work reduced to minutes</div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-problem">Problem: site data scattered across platforms</div>
+      <div class="project-name">NanoClaw — Site Management System</div>
+      <p class="project-desc">
+        Built a full-stack internal site reporting system (FastAPI + PostgreSQL 
+        + React) running on a Raspberry Pi 5 via Cloudflare Tunnel. WhatsApp 
+        Business API integration for field reporting, Remato import, supplier 
+        delivery tracking, and PM dashboard.
+      </p>
+      <div class="project-outcome">In active production use</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FIELDBOOK -->
+<section id="fieldbook">
+  <div class="section-header">
+    <span class="section-num">02 — Fieldbook</span>
+    <h2 class="section-title">A guide to field judgment</h2>
+  </div>
+  <p class="fieldbook-intro">
+    Five chapters on the decisions that don't appear in instrument manuals — 
+    the judgment calls, workarounds, and communication patterns that close the 
+    gap between what's designed and what gets built.
+  </p>
+  <div class="fieldbook-grid">
+    <div class="fieldbook-entry">
+      <div class="entry-num">Chapter 01</div>
+      <div class="entry-title">The Information Delivery Problem</div>
+      <p class="entry-desc">On giving people data in the format they can actually act on — not just accurate, but actionable. The AnyDesk story.</p>
+    </div>
+    <div class="fieldbook-entry">
+      <div class="entry-num">Chapter 02</div>
+      <div class="entry-title">Reading the Machine</div>
+      <p class="entry-desc">What blade behavior tells you about the surface model before you check the file. Diagnosing 3D machine control issues from the cab signal alone.</p>
+    </div>
+    <div class="fieldbook-entry">
+      <div class="entry-num">Chapter 03</div>
+      <div class="entry-title">Cross-Vendor Geometry</div>
+      <p class="entry-desc">Leica, Topcon, and Trimble speak different dialects. Coordinate system traps, file format translation, and the checks that catch silent errors.</p>
+    </div>
+    <div class="fieldbook-entry">
+      <div class="entry-num">Chapter 04</div>
+      <div class="entry-title">Stockpile and Volume Discipline</div>
+      <p class="entry-desc">Why volume numbers lie and how to make them honest. Survey timing, surface selection, and the conversation to have before the excavator starts.</p>
+    </div>
+    <div class="fieldbook-entry">
+      <div class="entry-num">Chapter 05</div>
+      <div class="entry-title">The Setup That Saves the Day</div>
+      <p class="entry-desc">Field ergonomics and instrument setup decisions that seem minor until something goes wrong. The habits that compress recovery time.</p>
+    </div>
+    <div class="fieldbook-entry">
+      <div class="entry-num">Thesis</div>
+      <div class="entry-title">Measurement is a means, not an end</div>
+      <p class="entry-desc">The surveyor's job isn't to collect data. It's to deliver information in a form the recipient can act on — and to know the difference.</p>
+    </div>
+  </div>
+  <div class="fieldbook-cta">
+    <a href="fieldbook.pdf" class="btn btn-primary" download>↓ Download PDF</a>
+    <p class="fieldbook-thesis">"The gap between a good number and a useful number is everything the manual doesn't cover."</p>
+  </div>
+</section>
+
+<!-- TOOLS -->
+<section id="tools">
+  <div class="section-header">
+    <span class="section-num">03 — Tools</span>
+    <h2 class="section-title">Instruments &amp; software</h2>
+  </div>
+  <div class="tools-full-grid">
+    <div class="tool-category">
+      <div class="tool-cat-label">Survey Instruments</div>
+      <div class="tool-items">
+        <span class="tool-item">Leica TS / MS series</span>
+        <span class="tool-item">Topcon GT / GR</span>
+        <span class="tool-item">Leica GS18 / GS16 rover</span>
+        <span class="tool-item">CHCNav i83</span>
+        <span class="tool-item">Faro Focus 3D scanner</span>
+        <span class="tool-item">Choke ring GNSS (static)</span>
+      </div>
+    </div>
+    <div class="tool-category">
+      <div class="tool-cat-label">Machine Control</div>
+      <div class="tool-items">
+        <span class="tool-item">Leica MCP80</span>
+        <span class="tool-item">Topcon 3D-MC²</span>
+        <span class="tool-item">Trimble GCS900</span>
+        <span class="tool-item">Surface model prep</span>
+        <span class="tool-item">IFC-to-TIN conversion</span>
+        <span class="tool-item">LandXML QC</span>
+      </div>
+    </div>
+    <div class="tool-category">
+      <div class="tool-cat-label">CAD &amp; Processing</div>
+      <div class="tool-items">
+        <span class="tool-item">AutoCAD Civil 3D</span>
+        <span class="tool-item">BricsCAD</span>
+        <span class="tool-item">Agisoft Metashape</span>
+        <span class="tool-item">MAGNET Field / Office</span>
+        <span class="tool-item">Leica Infinity</span>
+        <span class="tool-item">AutoLISP / BricsCAD LISP</span>
+      </div>
+    </div>
+    <div class="tool-category">
+      <div class="tool-cat-label">UAV &amp; Dev</div>
+      <div class="tool-items">
+        <span class="tool-item">DJI Phantom 4 RTK</span>
+        <span class="tool-item">DJI M30T</span>
+        <span class="tool-item">Python · FastAPI</span>
+        <span class="tool-item">PostgreSQL · React</span>
+        <span class="tool-item">Docker · Linux</span>
+        <span class="tool-item">NTRIP / CORS setup</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="section-header">
+      <span class="section-num">04 — Contact</span>
+      <h2 class="section-title">Let's talk</h2>
+    </div>
+    <p class="contact-line">
+      Arriving in <em>Edmonton</em> late summer 2026.<br>
+      Targeting grade control, survey assistant, or draftsperson roles<br>
+      in earthworks and civil construction.
+    </p>
+    <div class="contact-details">
+      <div class="contact-item">
+        <span class="contact-item-label">Email</span>
+        <a href="mailto:your@email.com">your@email.com</a>
+      </div>
+      <div class="contact-item">
+        <span class="contact-item-label">LinkedIn</span>
+        <a href="#">linkedin.com/in/yourprofile</a>
+      </div>
+      <div class="contact-item">
+        <span class="contact-item-label">Location</span>
+        <span>Edmonton, AB — available from Sept 2026</span>
+      </div>
+    </div>
+    <a href="fieldbook.pdf" class="btn btn-primary" download>↓ Download Field Judgment Guide</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>Chris K. — Survey &amp; Machine Control</span>
+  <span>Edmonton, AB · 2026</span>
+</footer>
+
+</body>
+</html>
